@@ -105,5 +105,50 @@ int main() {
 	deleteStack(stack);
 	printStack(stack);
 
+	/**************************************/
+	cout << "\n*** QUEUE ***\n";
+
+	Queue queue;
+	// Khởi tạo queue rỗng.
+	initialize(queue);
+
+	// Nhập thông tin 1 sinh viên và thêm vào queue.
+	cout << "Nhap sinh vien '301' va them vao Queue.\n";
+	Student s4 = inputStudent("301", 301, 301);
+	SNode* node4 = createNode(s4);
+	enqueue(queue, node4);
+
+	// Thêm n phần tử sinh viên vào queue
+	cout << "Them 10 sinh vien vao Queue:\n";
+	n = 10;
+	for (int i = 0; i < n; i++) {
+		Student s = inputStudent(to_string(i), i, i * 1.0);
+		SNode* node = createNode(s);
+		enqueue(queue, node);
+	}
+	printQueue(queue);
+
+	// Xóa 1 phần tử sinh viên khỏi queue
+	cout << "Xoa sinh vien tren dau Queue:\n";
+	deuque(queue);
+	printQueue(queue);
+
+	// Nhập điểm số, xóa tất cả sinh viên có điểm số vừa nhập khỏi queue
+	cout << "Nhap diem sinh vien can xoa: ";
+	cin >> grade;
+	removeWithGrade(queue, grade);
+
+	// Xuất danh sách sinh viên
+	printQueue(queue);
+
+	//Tính điểm trung bình của tất cả sinh viên trong queue
+	cout << "Diem trung binh cua cac sinh vien la: " << getAverageGrade(queue) << endl;
+
+	// Xóa tất cả phần tử của queue
+	cout << "Xoa Queue...\n";
+	deleteQueue(queue);
+	printQueue(queue);
+
+	system("pause");
 	return 0;
 }

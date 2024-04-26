@@ -176,7 +176,7 @@ void addBeforeTail(SList& list, SNode* node) {
 		list.head = node;
 	}
 	else {
-		node->next = prev->next;
+		node->next = curr;
 		prev->next = node;
 	}
 }
@@ -295,6 +295,115 @@ double getAverageGrade(const Stack& stack) {
 	double sum = 0;
 	int count = 0;
 	SNode* curr = stack.top;
+
+	while (curr != nullptr) {
+		sum += curr->student.grade;
+		count++;
+		curr = curr->next;
+	}
+
+	return sum / count;
+}
+
+/**************************************/
+// QUEUE FUNCTION
+void initialize(Queue& queue) {
+	queue.head = nullptr;
+	queue.tail = nullptr;
+}
+
+bool isEmpty(const Queue& queue) {
+	return (queue.head == nullptr);
+}
+
+void enqueue(Queue& queue, SNode* node) {
+	if (isEmpty(queue)) {
+		queue.head = node;
+		queue.tail = node;
+		return;
+	}
+	queue.tail->next = node;
+	queue.tail = node;
+}
+
+void deuque(Queue& queue) {
+	if (isEmpty(queue)) {
+		cerr << "Queue is empty.\n";
+		return;
+	}
+	SNode* temp = queue.head;
+	queue.head = queue.head->next;
+	delete temp;
+	temp = nullptr;
+}
+
+SNode* peek(const Queue& queue) {
+	if (isEmpty(queue)) {
+		cerr << "Queue is empty.\n";
+		exit(1);
+	}
+	return queue.head;
+}
+
+void deleteQueue(Queue& queue) {
+	while (!isEmpty(queue)) {
+		deuque(queue);
+	}
+}
+
+void printQueue(const Queue& queue) {
+	if (isEmpty(queue)) {
+		cout << "Queue is empty.\n";
+		return;
+	}
+	SNode* curr = queue.head;
+	while (curr != nullptr) {
+		printStudent(curr->student);
+		cout << endl;
+		curr = curr->next;
+	}
+}
+
+void removeWithGrade(Queue& queue, const int& grade) {
+	if (isEmpty(queue)) {
+		cerr << "Queue is empty.\n";
+		return;
+	}
+
+	SNode* curr = queue.head;
+	SNode* prev = nullptr;
+
+	while (curr != nullptr) {
+		if (curr->student.grade == grade) {
+			// Kiểm tra phần tử đầu tiên
+			if (prev == nullptr) {
+				deuque(queue);
+				curr = queue.head;
+			}
+			else {
+				prev->next = curr->next;
+				SNode* temp = curr;
+				curr = curr->next;
+				delete temp;
+				temp = nullptr;
+			}
+		}
+		else {
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+}
+
+double getAverageGrade(const Queue& queue) {
+	if (isEmpty(queue)) {
+		cerr << "Queue is empty.\n";
+		exit(1);
+	}
+
+	double sum = 0;
+	int count = 0;
+	SNode* curr = queue.head;
 
 	while (curr != nullptr) {
 		sum += curr->student.grade;

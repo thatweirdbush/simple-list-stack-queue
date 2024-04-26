@@ -48,3 +48,19 @@ void deleteStack(Stack& stack);
 void printStack(const Stack& stack);
 void removeWithGrade(Stack& stack, const int& grade);
 double getAverageGrade(const Stack& stack);
+
+/**************************************/
+struct Queue {
+	SNode* head;
+	SNode* tail;
+};
+
+void initialize(Queue& queue);
+bool isEmpty(const Queue& queue);
+void enqueue(Queue& queue, SNode* node);
+void deuque(Queue& queue);
+SNode* peek(const Queue& queue);
+void deleteQueue(Queue& queue);
+void printQueue(const Queue& queue);
+void removeWithGrade(Queue& queue, const int& grade);
+double getAverageGrade(const Queue& queue);
